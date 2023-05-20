@@ -1,14 +1,12 @@
 package com.ella.MakeBoard.controller;
 
-import com.ella.MakeBoard.domain.Board;
+import com.ella.MakeBoard.dto.BoardDto;
+import com.ella.MakeBoard.dto.PagingDto;
 import com.ella.MakeBoard.service.BoardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/boardList")
@@ -21,8 +19,8 @@ public class BoardController {
      * @return ResponseEntity<List<Board>>
      */
     @GetMapping("/getBoardList")
-    public ResponseEntity<List<Board>> getBoardList() {
-        return ResponseEntity.ok(boardService.getBoardList());
+    public Map<String, Object> getBoardList(PagingDto pagingDto) {
+        return boardService.getBoardList(pagingDto);
     }
 
     /**
@@ -31,19 +29,38 @@ public class BoardController {
      * @return ResponseEntity<Optional<Board>>
      */
     @GetMapping("/getBoardOne/{boardSeq}")
-    public ResponseEntity<Optional<Board>> getBoardOne(@PathVariable("boardSeq") long boardSeq) {
-        return ResponseEntity.ok(boardService.getBoardOne(boardSeq));
+    public BoardDto getBoardOne(@PathVariable("boardSeq") long boardSeq) {
+        return boardService.getBoardOne(boardSeq);
     }
 
     /**
      * 게시글 등록
-     * @param board
+     * @param boardDto
      * @return ResponseEntity<Board>
      */
     @PostMapping("/insertBoard")
-    public ResponseEntity<Board> insertBoard(@RequestBody Board board){
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(boardService.insertBoard(board));
+    public Long insertBoard(@RequestBody BoardDto boardDto){
+        return boardService.insertBoard(boardDto);
     }
+
+    /**
+     * 게시글 수정
+     * @param boardDto
+     * @return Long
+     */
+    @PatchMapping("/updateBoard")
+    public Long updateBoard(@RequestBody BoardDto boardDto){
+        return boardService.updateBoard(boardDto);
+    }
+
+    /**
+     * 게시글 삭제
+     * @param boardSeq
+     * @return boolean
+     */
+    @DeleteMapping("/deleteBoard/{boardSeq}")
+    public boolean deleteBoard(@PathVariable("boardSeq") long boardSeq) {
+        return boardService.deleteBoard(boardSeq);
+    }
+
 }
