@@ -1,6 +1,5 @@
 package com.ella.MakeBoard.domain;
 
-import com.ella.MakeBoard.dto.BoardDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,17 +11,20 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="board")
-public class BoardEntity {
+@Table(name="member_info")
+public class MemberInfoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardSeq;              // 게시판 PK
+    private Long memberSeq;              // 게시판 PK
 
-    @Column(name = "title")
-    private String title;               // 제목
+    @Column(name = "id")
+    private String id;               // 제목
 
-    @Column(name = "content")
-    private String content;             // 내용
+    @Column(name = "pw")
+    private String pw;             // 내용
+
+    @Column(name = "name")
+    private String name;             // 이름
 
     @Column(name = "mod_date")
     private LocalDateTime modDate;      // 수정일
@@ -31,11 +33,11 @@ public class BoardEntity {
     private LocalDateTime inpDate;      // 등록일
 
     @Builder
-    public BoardEntity(String title, String content){
-        this.title = title;
-        this.content = content;
+    public MemberInfoEntity(String id, String pw, String name){
+        this.id = id;
+        this.pw = pw;
+        this.name = name;
     }
-
 
     /* =======================================================
      * 입력, 수정 날짜 셋팅
@@ -50,17 +52,4 @@ public class BoardEntity {
         this.modDate = LocalDateTime.now();
     }
 
-
-    /* =======================================================
-     * 게시판 데이터 수정
-     * ======================================================= */
-    /**
-     * 제목(title) / 내용(content) 수정
-     * @param dto
-     */
-    public void update(BoardDto dto) {
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
-    }
 }
-

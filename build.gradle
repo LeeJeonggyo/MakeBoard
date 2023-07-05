@@ -27,6 +27,8 @@ dependencies {
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	// 스프링 시큐리티 추가
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	/* ========================================================================
 	 * 테스트 시에만 적용

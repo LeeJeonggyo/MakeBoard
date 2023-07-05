@@ -4,9 +4,7 @@ import com.ella.MakeBoard.domain.BoardEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 
-import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,6 +18,17 @@ public class BoardDto {
     private LocalDateTime inpDate;      // 등록일
 
     /* =======================================================
+     * entity -> dto 변환을 위한 생성자
+     * ======================================================= */
+    public BoardDto(BoardEntity board){
+        this.boardSeq = board.getBoardSeq();
+        this.content = board.getContent();
+        this.title = board.getTitle();
+        this.modDate = board.getModDate();
+        this.inpDate = board.getInpDate();
+    }
+
+    /* =======================================================
      * dto -> entity 변환
      * ======================================================= */
     public BoardEntity toEntity(){
@@ -29,18 +38,4 @@ public class BoardDto {
                 .build();
     }
 
-    /* =======================================================
-     * entity -> dto 변환
-     * ======================================================= */
-    public static BoardDto toDto(BoardEntity board){
-        BoardDto boardDto = new BoardDto();
-        boardDto.setBoardSeq(board.getBoardSeq());
-        boardDto.setContent(board.getContent());
-        boardDto.setTitle(board.getTitle());
-        boardDto.setModDate(board.getModDate());
-        boardDto.setInpDate(board.getInpDate());
-        return boardDto;
-    }
-
 }
-

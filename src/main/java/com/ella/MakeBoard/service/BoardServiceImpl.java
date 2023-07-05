@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService{
 
         // 리스트 dto 전환
         List<BoardDto> collect = boardEntity.getContent().stream()
-                .map(BoardDto::toDto)
+                .map(BoardDto::new)
                 .collect(Collectors.toList());
 
         // 데이터 담기
@@ -53,7 +53,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardDto getBoardOne(Long boardSeq){
         Optional<BoardEntity> boardEntity = boardRepository.findById(boardSeq);
-        return boardEntity.isPresent() ? BoardDto.toDto(boardEntity.get()) : null;
+        return boardEntity.isPresent() ? new BoardDto(boardEntity.get()) : null;
     }
 
     /**

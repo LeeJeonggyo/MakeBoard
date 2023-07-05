@@ -9,14 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/boardList")
+@RequestMapping(value = "/boardList")
 public class BoardController {
     @Autowired
     BoardServiceImpl boardService;
 
     /**
      * 게시글 전체 리스트
-     * @return ResponseEntity<List<Board>>
+     *  파라미터로 pageNumber, size 값을 넘겨 줘야 한다.
+     *      pageNumber = 0부터 시작 (페이지 번호)
+     *      size = 출력되는 개수
+     * @param pagingDto
+     * @return Map<String, Object>
      */
     @GetMapping("/getBoardList")
     public Map<String, Object> getBoardList(PagingDto pagingDto) {

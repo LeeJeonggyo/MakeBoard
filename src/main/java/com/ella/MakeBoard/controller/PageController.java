@@ -10,6 +10,11 @@ public class PageController {
         return "main";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping("/boardList")
     public String boardList(){
         return "boardList";
